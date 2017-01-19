@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -o errexit # Exit on error
+
+if [ "${NODE_ENV}" = "development" ]; then
+    $HOME/${APP_NAME}/node_modules/.bin/nodemon server.js
+else
+    npm start
+fi;

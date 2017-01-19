@@ -1,0 +1,10 @@
+peds_api:
+  build: .
+  environment:
+    - NODE_ENV=development
+    - APP_NAME
+  ports:
+    - '8080:8080'
+  volumes:
+    - .:/home/app/${APP_NAME}
+    - /home/app/${APP_NAME}/node_modules
