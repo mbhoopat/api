@@ -4,6 +4,7 @@ var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
 var fs = require("fs");
+const csv = require("csvtojson");
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -17,15 +18,12 @@ var port = process.env.PORT || 8080;        // set our port
 var router = express.Router();              // get an instance of the express Router
 
 const csvFilePath='data/colleges.csv'
-const csv = require("csvtojson");
 router.get('/colleges', function (req, res) {
   var firstItem=true
   csv()
   .fromFile(csvFilePath)
   .on('json',(jsonObj)=>{
-      // combine csv header row and csv line to a json object
-      // jsonObj.a ==> 1 or 4
-      console.log( jsonObj.UNITID );
+      // console.log( jsonObj.UNITID );
       res.write(firstItem ? (firstItem=false,'[') : ',');
       res.write(JSON.stringify(jsonObj, null, 3));
   })

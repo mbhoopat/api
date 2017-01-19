@@ -3,16 +3,22 @@
 This README documents steps are necessary to get the application up and running in development and production
 environment. These steps are based on http://jdlm.info/articles/2016/03/06/lessons-building-node-app-docker.html
 
+First time setup for development environment
+  * docker-compose build
+
 Starting application in development environment
   * docker-compose run --rm --service-ports peds_api ./start_peds_api
 This brings up the server in port 8080. Uses nodemon to monitor changes in source code and restarts the server
 for productive development. "docker-compose up" doesn't seem to work due to files not copied from the data
 container /home/app/peds_api/node_modules. Hence the workaround to use "docker-compose run".
 
+First time setup for production environment
+  * docker-compose -f docker-compose.prod.yml build
+
 Starting application in production environment
   * docker-compose -f docker-compose.prod.yml up
 
-Adding dependencies
+Adding new dependencies
   * docker-compose run --rm peds_api /bin/bash
   * npm install --save <package>
   * exit
