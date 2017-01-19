@@ -20,6 +20,7 @@ var router = express.Router();              // get an instance of the express Ro
 const csvFilePath='data/colleges.csv'
 router.get('/colleges', function (req, res) {
   var firstItem=true
+  res.writeHead(200, {'Content-Type': 'application/json'});
   csv()
   .fromFile(csvFilePath)
   .on('json',(jsonObj)=>{
