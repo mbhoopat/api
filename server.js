@@ -18,6 +18,29 @@ var port = process.env.PORT || 8080;        // set our port
 var router = express.Router();              // get an instance of the express Router
 
 const csvFilePath='data/colleges.csv'
+
+router.get('/colleges/:id', function (req, res) {
+  var itemFound=false
+  var collegeUnitIdParam = parseInt(req.params.id)
+  csv()
+  .fromFile(csvFilePath)
+  .on('json',(jsonObj)=>{
+      var collegeUnitIdCSV = parseInt(jsonObj.UNITID)
+      if ( collegeUnitIdParam == collegeUnitIdCSV ) {
+        console.log( collegeUnitIdParam + ' Found' );
+        itemFound=true
+        res.write(JSON.stringify(jsonObj, null, 3));
+      }
+  })
+  .on('done',(error)=>{
+      if ( itemFound == false ) {
+        console.log( collegeUnitIdParam + ' not Found' );
+      }
+      console.log('end');
+      res.end();
+  })
+})
+
 router.get('/colleges', function (req, res) {
   var firstItem=true
   res.writeHead(200, {'Content-Type': 'application/json'});
