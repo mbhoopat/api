@@ -1,8 +1,15 @@
+db:
+  image: postgres:9.6.1
 peds_api:
   build: .
+  links:
+    - db
   environment:
     - NODE_ENV=development
     - APP_NAME
+    - PGHOST=db
+    - PGDATABASE=postgres
+    - PGUSER=postgres
   ports:
     - '8080:8080'
   volumes:
